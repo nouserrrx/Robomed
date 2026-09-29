@@ -1,0 +1,15 @@
+{
+  "venvPath": "rhms",
+  "venv": "venv",
+  "extraPaths": [
+    "rhms/venv/lib/python3.14/site-packages",
+    "rhms"
+  ],
+  "reportMissingTypeStubs": "none",
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none",
+  "reportIncompatibleVariableOverride": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportGeneralTypeIssues": "none"
+}
+

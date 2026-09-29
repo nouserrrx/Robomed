@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: robomed_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-robomed_db}
+      POSTGRES_USER: ${POSTGRES_USER:-robomed_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-robomed_secure_pass_2026}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: robomed_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DEBUG: ${DEBUG:-False}
+      SECRET_KEY: ${SECRET_KEY:-django-insecure-production-key-change-me}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      DATABASE_URL: postgres://${POSTGRES_USER:-robomed_user}:${POSTGRES_PASSWORD:-robomed_secure_pass_2026}@db:5432/${POSTGRES_DB:-robomed_db}
+      CORS_ALLOW_ALL_ORIGINS: ${CORS_ALLOW_ALL_ORIGINS:-True}
+      DJANGO_EMAIL_BACKEND: ${DJANGO_EMAIL_BACKEND:-django.core.mail.backends.console.EmailBackend}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-contact@robomed.org}
+    volumes:
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: robomed_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:
+  media_volume:
