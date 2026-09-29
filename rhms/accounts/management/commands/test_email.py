@@ -14,7 +14,7 @@ class Command(BaseCommand):
         backend = getattr(settings, 'EMAIL_BACKEND', 'Non défini')
         host = getattr(settings, 'EMAIL_HOST', 'N/A')
         user = getattr(settings, 'EMAIL_HOST_USER', 'N/A')
-        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@robomed.org')
+        from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <robomedx@gmail.com>')
 
         self.stdout.write(self.style.NOTICE(f"\n📧 Test d'envoi d'email :"))
         self.stdout.write(f"   Backend utilisé : {backend}")

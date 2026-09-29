@@ -99,7 +99,7 @@ export function generateTaxReceiptPDF(data: TaxReceiptData) {
       </div>
 
       <div class="footer">
-        RoBomed — Organisation d'engagement étudiant binational créée le 22 Avril 2025. Contact : contact@robomed.org
+        RoBomed — Organisation d'engagement étudiant binational créée le 22 Avril 2025. Contact : robomedx@gmail.com
       </div>
     </body>
     </html>

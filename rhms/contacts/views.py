@@ -56,7 +56,7 @@ class ContactViewSet(ModelViewSet):
             send_mail(
                 subject=reply_subject,
                 message=reply_message,
-                from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'contact@robomed.org'),
+                from_email=getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <robomedx@gmail.com>'),
                 recipient_list=[contact.email],
                 fail_silently=False,
             )

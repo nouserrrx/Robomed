@@ -356,7 +356,7 @@ def build_tax_receipt_pdf(don: Don) -> io.BytesIO:
 
     # En-tête
     story.append(Paragraph("<b>ROBOMED HUMANITAIRE</b>", ParagraphStyle('H', parent=title_style, fontSize=16, textColor=colors.HexColor('#16A34A'))))
-    story.append(Paragraph("Organisation Étudiante Humanitaire (Canada & Tchad)<br/>Contact : contact@robomed.org", body_style))
+    story.append(Paragraph("Organisation Étudiante Humanitaire (Canada & Tchad)<br/>Contact : robomedx@gmail.com", body_style))
     story.append(Spacer(1, 15))
 
     story.append(Paragraph("REÇU FISCAL OFFICIEL DE DON", title_style))

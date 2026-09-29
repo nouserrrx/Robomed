@@ -84,7 +84,7 @@ def send_donation_receipt_email(don, recipient_email: str | None = None, recipie
           <strong>L'équipe RoBomed</strong></p>
         </div>
         <div class="footer">
-          RoBomed — Association à but non lucratif • contact@robomed.org • www.robomed.org<br>
+          RoBomed — Association à but non lucratif • robomedx@gmail.com • www.robomed.org<br>
           Ce reçu a été édité automatiquement par la plateforme RoBomed RHMS.
         </div>
       </div>
@@ -93,7 +93,7 @@ def send_donation_receipt_email(don, recipient_email: str | None = None, recipie
     """
     
     text_content = strip_tags(html_content)
-    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <contact@robomed.org>')
+    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <robomedx@gmail.com>')
 
     try:
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
@@ -157,7 +157,7 @@ def send_volunteer_approval_email(benevole) -> bool:
     </html>
     """
 
-    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <contact@robomed.org>')
+    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <robomedx@gmail.com>')
     try:
         msg = EmailMultiAlternatives(subject, strip_tags(html_content), from_email, [user.email])
         msg.attach_alternative(html_content, "text/html")
@@ -206,7 +206,7 @@ def send_contact_acknowledgement_email(contact) -> bool:
     </html>
     """
 
-    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <contact@robomed.org>')
+    from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'RoBomed <robomedx@gmail.com>')
     try:
         msg = EmailMultiAlternatives(subject, strip_tags(html_content), from_email, [contact.email])
         msg.attach_alternative(html_content, "text/html")

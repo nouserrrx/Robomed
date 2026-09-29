@@ -69,7 +69,7 @@ export default function Legal() {
               <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm">
                 <li><strong>Siège Canada :</strong> Montréal (Québec), Canada.</li>
                 <li><strong>Coordination Tchad :</strong> N'Djamena, République du Tchad.</li>
-                <li><strong>Contact officiel :</strong> contact@robomed.org / baradineaicha05@gmail.com</li>
+                <li><strong>Contact officiel :</strong> robomedx@gmail.com / baradineaicha05@gmail.com</li>
                 <li><strong>Direction de la publication :</strong> Équipe fondatrice RoBomed.</li>
               </ul>
 
