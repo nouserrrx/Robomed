@@ -37,6 +37,11 @@ class ContactViewSet(ModelViewSet):
             return [ContactAnonThrottle()]
         return super().get_throttles()
 
+    def perform_create(self, serializer):
+        contact = serializer.save()
+        from backend.emails import send_contact_acknowledgement_email
+        send_contact_acknowledgement_email(contact)
+
     @action(detail=True, methods=['post'], permission_classes=[IsAdminOrCoordinator])
     def reply(self, request, pk=None):
         contact = self.get_object()

@@ -53,3 +53,24 @@ class DonationCampaignTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res['Content-Type'], 'application/pdf')
         self.assertTrue(len(res.content) > 1000)
+
+    def test_donation_confirmation_sends_email_with_pdf_attachment(self):
+        from django.core import mail
+        from backend.emails import send_donation_receipt_email
+
+        don = Don.objects.create(
+            campagne=self.campagne,
+            montant=200,
+            statut='confirme',
+            reference='RBM-EMAIL-TEST-1',
+            message='Don de Jean Dupont (jean.dupont@example.com)'
+        )
+        success = send_donation_receipt_email(don)
+        self.assertTrue(success)
+        self.assertEqual(len(mail.outbox), 1)
+        email = mail.outbox[0]
+        self.assertIn('jean.dupont@example.com', email.to)
+        self.assertIn('Reçu Fiscal n° RBM-EMAIL-TEST-1', email.subject)
+        self.assertEqual(len(email.attachments), 1)
+        self.assertEqual(email.attachments[0][0], 'Recu_Fiscal_RBM-EMAIL-TEST-1.pdf')
+

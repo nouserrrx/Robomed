@@ -70,6 +70,8 @@ class BenevoleViewSet(ModelViewSet):
             benevole.utilisateur.is_approved = True
             benevole.utilisateur.role = 'benevole'
             benevole.utilisateur.save()
+            from backend.emails import send_volunteer_approval_email
+            send_volunteer_approval_email(benevole)
         return Response({'status': 'approved', 'message': 'Candidature approuvée avec succès.'})
 
     @action(detail=True, methods=['post'], permission_classes=[IsAdminOrCoordinator])

@@ -55,17 +55,24 @@ class DonViewSet(ModelViewSet):
             statut=initial_status,
         )
 
-        # Si le don est confirmé, mettre à jour la collecte de la campagne
-        if don.statut == 'confirme' and don.campagne:
-            self.update_campagne_collecte(don.campagne)
+        # Si le don est confirmé, mettre à jour la collecte de la campagne et envoyer le reçu fiscal par email
+        if don.statut == 'confirme':
+            if don.campagne:
+                self.update_campagne_collecte(don.campagne)
+            from backend.emails import send_donation_receipt_email
+            send_donation_receipt_email(don)
 
     def perform_update(self, serializer):
+        old_statut = serializer.instance.statut
         old_campagne = serializer.instance.campagne
         don = serializer.save()
         if don.campagne:
             self.update_campagne_collecte(don.campagne)
         if old_campagne and old_campagne != don.campagne:
             self.update_campagne_collecte(old_campagne)
+        if old_statut != 'confirme' and don.statut == 'confirme':
+            from backend.emails import send_donation_receipt_email
+            send_donation_receipt_email(don)
 
     def update_campagne_collecte(self, campagne):
         from django.db.models import Sum
